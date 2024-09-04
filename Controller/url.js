@@ -31,7 +31,9 @@ async function fetchURL(req, res) {
     if (!urlObj) {
       return res.status(404).json({ error: "URL not found" });
     }
-
+    //update visit count
+    urlObj.userVisit = urlObj.userVisit+1;
+    await modelURL.findByIdAndUpdate(urlObj._id,urlObj);
     // Redirect to the original URL
     return res.redirect(urlObj.url);
   } catch (error) {
