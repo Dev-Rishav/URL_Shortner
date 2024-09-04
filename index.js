@@ -22,10 +22,6 @@ app.use(createLog);
 //routes
 app.use("/", router);
 
-app.get("/:URL/analytics/:id", (req, res) => {
-  res.send("hi");
-});
-
 const PORT = 8001;
 app.listen(PORT, () => {
   console.log("Listening to port 8001");

@@ -10,6 +10,6 @@ router.route("/").post(createURL);
 router.route("/:id").get(fetchURL);
 
 //fetch analytics
-router.route("/URL/analytics/:id").get(getAnalytics);
+router.route("/analytics/:id").get(getAnalytics);
 
 module.exports = router;

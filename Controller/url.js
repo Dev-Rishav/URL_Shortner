@@ -32,8 +32,8 @@ async function fetchURL(req, res) {
       return res.status(404).json({ error: "URL not found" });
     }
     //update visit count
-    urlObj.userVisit = urlObj.userVisit+1;
-    await modelURL.findByIdAndUpdate(urlObj._id,urlObj);
+    urlObj.userVisit = urlObj.userVisit + 1;
+    await modelURL.findByIdAndUpdate(urlObj._id, urlObj);
     // Redirect to the original URL
     return res.redirect(urlObj.url);
   } catch (error) {
@@ -43,7 +43,23 @@ async function fetchURL(req, res) {
 }
 
 async function getAnalytics(req, res) {
-  //TODO write this function to fetch the analytics for the given url
+  // Function to fetch the analytics for the given URL
+  const id =Number( req.params.id);
+  
+  try {
+    const urlObj = await modelURL.findById(id);
+    console.log("hgghhaa: ",urlObj);
+    
+    if (!urlObj) {
+      return res.status(404).json({ error: "URL not found in DB" });
+    }
+    return res
+      .status(200)
+      .json({ message: `Link visited by ${urlObj.userVisit} users.` });
+  } catch (e) {
+    console.error("Error searching for URL in DB", e);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
 module.exports = {
