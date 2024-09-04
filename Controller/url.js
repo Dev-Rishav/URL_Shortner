@@ -1,6 +1,7 @@
 const modelURL = require("../Models/urlScehma");
 
 async function createURL(req, res) {
+  //TODO: if the url already exists then update the visit count
   const body = req.body;
   if (!body || !body.url)
     return res.status(400).json({ error: "field missing" });
@@ -21,8 +22,22 @@ async function createURL(req, res) {
 }
 
 async function fetchURL(req, res) {
-  //TODO write fetch URL function to fetch link from the database and return it
-  res.send("gg haha");
+  // function to fetch link from the database and return it
+  const id = req.params.id;
+
+  try {
+    const urlObj = await modelURL.findById(id);
+
+    if (!urlObj) {
+      return res.status(404).json({ error: "URL not found" });
+    }
+
+    // Redirect to the original URL
+    return res.redirect(urlObj.url);
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
 async function getAnalytics(req, res) {
