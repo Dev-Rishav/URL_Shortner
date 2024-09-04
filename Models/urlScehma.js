@@ -8,7 +8,6 @@ const urlSchema = new mongoose.Schema({
   },
   userVisit: {
     type: Number,
-    required: true,
   },
 });
 

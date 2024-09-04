@@ -11,7 +11,12 @@ connectMongoDB("mongodb://localhost:27017/url_shortner").then(() =>
   console.log("MongoDB connected")
 );
 
-//* custom middleware (This is where log will be created for the clicks/visits in the page)
+//Middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: true}));
+
+
+// custom middleware (This is where log will be created for the clicks/visits in the page)
 app.use(createLog);
 
 //routes
